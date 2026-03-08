@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrochem Practice Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+        <h1>Electrochemistry Problem Generator</h1>
+        <p>A random galvanic cell problem generator. <strong>Simulation Mode</strong> allows you to explore how the cell potential changes and see the proper cell notation. <strong>Practice Mode</strong> will generate a random cell and you can test your knowledge with the questions below.</p>
+
+        <div class="controls">
+          <div class="toggles-wrapper">
+          <div class="switch-container" title="Toggle between Galvanic (spontaneous) and Electrolytic (non-spontaneous) cells" style="display: none;">
+            <span class="mode-label">Galvanic</span>
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle" onchange="updateUI()">
+                <span class="slider round"></span>
+            </label>
+            <span class="mode-label">Electrolytic</span>
+          </div>
+          <div class="vertical-line" style="display: none;"></div>
+          <div class="switch-container" title="Switch between practice (question) mode and simulation (visualization) mode">
+            <span class="view-label">Simulation</span>
+            <label class="switch">
+                <input type="checkbox" id="practice-toggle" onchange="updateUI()" checked>
+                <span class="slider round"></span>
+            </label>
+            <span class="view-label">Practice</span>
+          </div>
+          </div>
+          <button onclick="generateNewProblem()">Generate New Cell</button>
+        </div>
+   
+<div id="cell-stage" style="position: relative; width: 600px; height: 400px;">
+  
+<div class="half-cell" style="position: absolute; left: 100px; bottom: 50px;">
+  <div id="left-liquid" class="liquid-box">
+    <div id="left-bubbles" class="bubbles-container"></div>
+  </div>
+  <img src="/assets/images/left_beaker.png" class="beaker-img">
+  <div id="left-electrode" class="electrode-strip"></div>
+</div>
+
+<div class="half-cell" style="position: absolute; right: 100px; bottom: 50px;">
+  <div id="right-liquid" class="liquid-box">
+    <div id="right-bubbles" class="bubbles-container"></div>
+  </div>
+  <img src="/assets/images/right_beaker.png" class="beaker-img">
+  <div id="right-electrode" class="electrode-strip"></div>
+</div>
+
+<div class="salt-bridge">   
+  <img src="/assets/images/salt_bridge.png" class="bridge-img">
+</div>
+
+  <svg id="circuit-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+    <path id="wire" d="M 135 180 L 135 50 L 470 50 L 470 180" fill="none" stroke="#000000" stroke-width="5" />
+  </svg>
+
+  <div id="voltmeter-container" style="position: absolute; top: 18px; left: 50%; transform: translateX(-50%);">
+    <img src="/assets/images/voltmeter.png" style="width: 140px; height:65px">
+    <div id="voltage-display">0.00</div>
+  </div>
+</div>
+
+<div class="stats-box" id="params-display"></div>
+
+    <!-- Simulation Mode Notation Box -->
+    <div id="simulation-box-notation" style="display:none; margin-top: 10px; background: #e3f2fd; border: 1px solid #90caf9; padding: 10px; border-radius: 5px;"></div>
+
+    <!-- New Practice Mode Section -->
+    <div class="practice-box" id="practice-box-basic" style="display:block; margin-top: 10px; background: #fffacd; border: 1px solid #ffeeba;">
+    </div>
+
+    <div class="practice-box" id="practice-box-eq" style="display:block; margin-top: 10px; background: #cdffd0; border: 1px solid #baffc9;">
+    </div>
+
+    <div class="practice-box" id="practice-box-nernst" style="display:block; margin-top: 10px; background: #cdd0ff; border: 1px solid #baccff;">
+    </div>
+
+ 
+    <script src="script.js"></script>
+
+    <br>
+  <footer>
+    <p><strong>Built by:</strong> Jamie Young, Johns Hopkins Chemistry</p>
+</footer>
+
+  </body>
+</html>

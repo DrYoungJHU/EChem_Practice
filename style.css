@@ -1,0 +1,308 @@
+:root {
+    --bg-color: #f4f7f6;
+    --panel-color: #ffffff;
+}
+
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); display: flex; justify-content: center; padding: 20px; }
+
+.app-container { background: var(--panel-color); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 700px; text-align: center; }
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.toggles-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Container for the switch and labels */
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.vertical-line {
+    border-left: 3px solid black;
+    height: 30px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #108b00;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+/* When checked, change background and move circle */
+input:checked + .slider {
+    background-color: #800000;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* Specific colors for Practice Toggle */
+#practice-toggle + .slider {
+    background-color: #007bff;
+}
+
+#practice-toggle:checked + .slider {
+    background-color: #fd7e14;
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+button { 
+    padding: 10px 20px; 
+    background: #28a745; 
+    color: white; 
+    border: solid 2px #000000; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold; 
+}
+
+button.secondary { background: #007bff; }
+input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100px; }
+
+.stats-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    background: #e9ecef;
+    padding: 5px;
+    border-radius: 8px;
+    margin: 0 auto 10px;
+    font-family: monospace;
+    line-height: 1.6;
+}
+
+/* THE STAGE */
+#cell-stage {
+    position: relative;
+    width: 600px;
+    height: 350px;
+    margin: 20px auto;
+    overflow: hidden;
+    border: 3px solid #616161;
+    border-radius: 15px;
+}
+
+.base-setup { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; pointer-events: none; }
+
+.beaker-img {
+  width: 150px;
+  display: block;
+}
+
+.liquid-box {
+  position: absolute;
+  bottom: 0px;
+  width: 130px;
+  height: 120px;
+  z-index: 1;
+  border-radius: 0 0 15px 15px;
+  transition: background-color 0.5s ease;
+}
+#left-liquid { left: 10px; }
+#right-liquid { right: 10px; }
+
+/* Ensure beaker image visually sits above the liquid */
+.beaker-img { position: relative; z-index: 2; }
+
+.electrode-strip {
+    position: absolute;
+    top: -20px;
+    width: 25px;
+    height: 120px;
+    z-index: 5;
+    background: linear-gradient(
+        90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.4) 50%, 
+        rgba(0,0,0,0.1) 100%
+    );
+    border: 2px solid rgba(0,0,0);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0);
+}
+#left-electrode { left: 10px; }
+#right-electrode { right: 100px; } 
+
+.bridge-img {
+    display: flex;
+    position: absolute;
+    top: 110px;
+    left: 200px;
+    width: 200px;
+    height: auto;
+}
+
+#voltage-display { 
+    font-weight: bold; 
+    font-family: sans-serif; 
+    color:#e0b802; 
+    font-size: 1.6rem; 
+    margin-top: -50px; 
+}
+
+.cell-label { 
+    position: absolute; 
+    bottom: 10px; 
+    font-weight: bold; 
+    z-index: 20; 
+    text-transform: uppercase; 
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 0;
+    padding: 2px;
+    background-color: Navy;
+    color: white;
+    border-radius: 10px;
+}
+
+/* ==================== BUBBLES ANIMATION ==================== */
+
+.bubbles-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    display: none; /* Hidden by default */
+    z-index: 3; /* Above liquid, below beaker glass */
+}
+
+.bubble {
+    position: absolute;
+    bottom: 10px;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+    border-radius: 50%;
+    animation: rise 2.5s infinite ease-in;
+    box-shadow: 
+        0 0 3px rgba(255, 255, 255, 0.8),
+        inset -2px -2px 3px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes rise {
+    0% {
+        bottom: 10px;
+        opacity: 0;
+        transform: translateX(0) scale(0.8);
+    }
+    10% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.9;
+        transform: translateX(5px) scale(1);
+    }
+    100% {
+        bottom: 115px;
+        opacity: 0;
+        transform: translateX(10px) scale(0.6);
+    }
+}
+
+/* Staggered timing for natural bubble flow */
+.bubble:nth-child(1) { 
+    left: 35%; 
+    animation-delay: 0s; 
+    width: 5px;
+    height: 5px;
+}
+.bubble:nth-child(2) { 
+    left: 48%; 
+    animation-delay: 0.5s; 
+    width: 7px;
+    height: 7px;
+}
+.bubble:nth-child(3) { 
+    left: 55%; 
+    animation-delay: 1s; 
+    width: 6px;
+    height: 6px;
+}
+.bubble:nth-child(4) { 
+    left: 42%; 
+    animation-delay: 1.5s; 
+    width: 8px;
+    height: 8px;
+}
+.bubble:nth-child(5) { 
+    left: 52%; 
+    animation-delay: 2s; 
+    width: 5px;
+    height: 5px;
+}
+.bubble:nth-child(6) { 
+    left: 38%; 
+    animation-delay: 2.3s; 
+    width: 7px;
+    height: 7px;
+}
